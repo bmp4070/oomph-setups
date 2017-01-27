@@ -4,10 +4,8 @@
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:pde="http://www.eclipse.org/oomph/setup/pde/1.0"
-    xmlns:projectset="http://www.eclipse.org/oomph/setup/projectset/1.0"
     xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
     xmlns:setup.targlets="http://www.eclipse.org/oomph/setup/targlets/1.0"
-    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/pde/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/PDE.ecore http://www.eclipse.org/oomph/setup/projectset/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/ProjectSet.ecore http://www.eclipse.org/oomph/setup/targlets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupTarglets.ecore"
     name="blt.projects"
     label="BLT Projects">
   <annotation
@@ -188,14 +186,15 @@
     <description>An API baseline based on the target platform named 'Modular API Baseline Target'</description>
   </setupTask>
   <project href="user:/BLTProjects.setup?name='user.project',label='&lt;User>',description='A container project for local user projects that are virtual members of the BLT Projects project catalog'#/"/>
-  <project name="sfdc.core"
-      label="SFDC Core">
-    <setupTask
-        xsi:type="projectset:ProjectSetImportTask"
-        id="xtextSDKRun"
-        uRL="https://raw.githubusercontent.com/nittka/oomph-playground/master/setups/setups/xtextSDKRun.setup#/">
-      <description>xtext</description>
-    </setupTask>
+  <project name="sfdc.core.projects"
+      label="SFDC Core Projects">
+    <project
+        href="file:///Users/mprabhala/Documents/rcppworkspace/CustomEclipse/SFDCCore.setup#/"/>
+  </project>
+  <project name="sfdc.core.projects"
+      label="SFDC Git Projects">
+    <project
+        href="file:///Users/mprabhala/Documents/rcppworkspace/CustomEclipse/UITier.setup#/"/>
   </project>
   <description>BLT Projects provides cool projects.</description>
 </setup:ProjectCatalog>

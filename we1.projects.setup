@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup:ProjectCatalog
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:pde="http://www.eclipse.org/oomph/setup/pde/1.0"
+    xmlns:projects="http://www.eclipse.org/oomph/setup/projects/1.0"
+    xmlns:projectset="http://www.eclipse.org/oomph/setup/projectset/1.0"
+    xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
+    xmlns:setup.targlets="http://www.eclipse.org/oomph/setup/targlets/1.0"
+    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/pde/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/PDE.ecore http://www.eclipse.org/oomph/setup/projects/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Projects.ecore http://www.eclipse.org/oomph/setup/projectset/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/ProjectSet.ecore http://www.eclipse.org/oomph/setup/targlets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupTarglets.ecore"
+    name="blt.projects"
+    label="BLT Projects">
+  <annotation
+      source="http://www.eclipse.org/oomph/setup/BrandingInfo">
+    <detail
+        key="imageURI">
+      <value>platform:/plugin/org.eclipse.oomph.setup.ui/icons/committers.png</value>
+    </detail>
+    <detail
+        key="siteURI">
+      <value>https://projects.eclipse.org/</value>
+    </detail>
+  </annotation>
+  <setupTask
+      xsi:type="setup:CompoundTask"
+      name="Global variables">
+    <setupTask
+        xsi:type="setup:VariableTask"
+        name="p4.user"
+        storageURI="scope://Workspace"/>
+    <setupTask
+        xsi:type="setup:VariableTask"
+        name="p4.port"
+        storageURI="scope://Workspace"/>
+    <setupTask
+        xsi:type="setup:VariableTask"
+        name="eclipse.target.platform"
+        defaultValue="Neon"
+        storageURI="scope://Workspace"
+        label="${scope.project.label} Target Platform">
+      <choice
+          value="Mars"
+          label="Eclipse Mars - 4.5"/>
+      <choice
+          value="Neon"
+          label="Eclipse Neon - 4.6"/>
+    </setupTask>
+  </setupTask>
+  <setupTask
+      xsi:type="setup:EclipseIniTask"
+      option="-Xmx"
+      value="${Eclipse.Xmx}"
+      vm="true">
+    <description>Set the heap space needed to work with the projects of ${scope.project.label}</description>
+  </setupTask>
+  <setupTask
+      xsi:type="setup:WorkspaceTask"
+      id="workspace"/>
+  <setupTask
+      xsi:type="setup:ResourceCreationTask"
+      content="MAX_RECENT_WORKSPACES=5&#xD;&#xA;RECENT_WORKSPACES=${workspace.location|property}&#xD;&#xA;RECENT_WORKSPACES_PROTOCOL=3&#xD;&#xA;SHOW_WORKSPACE_SELECTION_DIALOG=true&#xD;&#xA;eclipse.preferences.version=1"
+      targetURL="configuration:/.settings/org.eclipse.ui.ide.prefs"/>
+  <setupTask
+      xsi:type="setup:TextModifyTask"
+      url="configuration:/config.ini">
+    <modification
+        pattern="osgi\.instance\.area\.default=(@user\.home/workspace)">
+      <substitution>${workspace.location|path}</substitution>
+    </modification>
+  </setupTask>
+  <setupTask
+      xsi:type="setup.targlets:TargletTask">
+    <targlet
+        name="Eclipse Platform"
+        activeRepositoryList="${eclipse.target.platform}">
+      <repositoryList
+          name="None"/>
+      <repositoryList
+          name="Oxygen">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/4.7-I-builds"/>
+      </repositoryList>
+      <repositoryList
+          name="Neon">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/4.6"/>
+      </repositoryList>
+      <repositoryList
+          name="Mars">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/4.5"/>
+      </repositoryList>
+      <repositoryList
+          name="Luna">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/4.4"/>
+      </repositoryList>
+      <repositoryList
+          name="Kepler">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/4.3"/>
+      </repositoryList>
+      <repositoryList
+          name="Juno">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/4.2"/>
+      </repositoryList>
+      <repositoryList
+          name="Indigo">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/3.7"/>
+      </repositoryList>
+      <repositoryList
+          name="Helios">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/3.6"/>
+      </repositoryList>
+      <repositoryList
+          name="Galileo">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/3.5"/>
+      </repositoryList>
+    </targlet>
+  </setupTask>
+  <setupTask
+      xsi:type="setup.targlets:TargletTask"
+      id="api.baseline.targlet"
+      targetName="Modular API Baseline Target"
+      activateTarget="false">
+    <targlet
+        name="Eclipse Platform"
+        activeRepositoryList="${eclipse.api.baseline.target.platform}"
+        includeSources="false">
+      <repositoryList
+          name="None"/>
+      <repositoryList
+          name="Oxygen">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/4.7-I-builds"/>
+      </repositoryList>
+      <repositoryList
+          name="Neon">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/4.6"/>
+      </repositoryList>
+      <repositoryList
+          name="Mars">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/4.5"/>
+      </repositoryList>
+      <repositoryList
+          name="Luna">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/4.4"/>
+      </repositoryList>
+      <repositoryList
+          name="Kepler">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/4.3"/>
+      </repositoryList>
+      <repositoryList
+          name="Juno">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/4.2"/>
+      </repositoryList>
+      <repositoryList
+          name="Indigo">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/3.7"/>
+      </repositoryList>
+      <repositoryList
+          name="Helios">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/3.6"/>
+      </repositoryList>
+      <repositoryList
+          name="Galileo">
+        <repository
+            url="http://download.eclipse.org/eclipse/updates/3.5"/>
+      </repositoryList>
+    </targlet>
+  </setupTask>
+  <setupTask
+      xsi:type="pde:APIBaselineFromTargetTask"
+      predecessor="api.baseline.targlet"
+      name="Modular API Baseline"
+      targetName="Modular API Baseline Target">
+    <description>An API baseline based on the target platform named 'Modular API Baseline Target'</description>
+  </setupTask>
+  <project href="user:/BLTProjects.setup?name='user.project',label='&lt;User>',description='A container project for local user projects that are virtual members of the BLT Projects project catalog'#/"/>
+  <project name="sfdc.core"
+      label="SFDC Core">
+    <setupTask
+        xsi:type="projectset:ProjectSetImportTask"
+        id="xtextSDKRun"
+        uRL="https://raw.githubusercontent.com/nittka/oomph-playground/master/setups/setups/xtextSDKRun.setup#/">
+      <description>xtext</description>
+    </setupTask>
+    <setupTask
+        xsi:type="projects:ProjectsImportTask"
+        id="core.main">
+      <sourceLocator
+          rootFolder="/Users/mprabhala/blt/app/main/core/chatter"/>
+      <description></description>
+    </setupTask>
+  </project>
+  <description>BLT Projects provides cool projects.</description>
+</setup:ProjectCatalog>
